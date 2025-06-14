@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IG Follower Checker</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      width: 300px; 
+      padding: 10px; 
+    }
+    button { 
+      margin: 10px 0; 
+      width: 100%;
+      padding: 8px;
+      background: #0095f6;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    #status { 
+      font-size: 0.9em; 
+      color: #666;
+      margin: 10px 0;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      margin: 10px 0;
+      display: none;
+    }
+    .progress-bar .fill {
+      height: 100%;
+      background: #0095f6;
+      width: 0%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    ul { 
+      max-height: 150px; 
+      overflow-y: auto; 
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h3>Compare Followers & Following</h3>
+  <button id="run">Run Comparison</button>
+  <div class="progress-bar" id="progressBar">
+    <div class="fill"></div>
+  </div>
+  <p id="status">Navigate to your profile page before running.</p>
+  <div id="results" class="hidden"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
