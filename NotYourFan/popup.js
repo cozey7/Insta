@@ -34,15 +34,7 @@ document.getElementById("run").addEventListener("click", async () => {
   }, 1000);
 
   // Trigger the scraping
-  await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: () => {
-      localStorage.removeItem("ig_followers");
-      localStorage.removeItem("ig_following");
-      localStorage.setItem("ig_scraping_status", "Starting...");
-      window.dispatchEvent(new Event("load"));
-    }
-  });
+  await chrome.tabs.sendMessage(tab.id, { action: "startScraping" });
 });
 
 let checkStatusInterval;

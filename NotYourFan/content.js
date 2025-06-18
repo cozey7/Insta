@@ -25,9 +25,11 @@ async function scrapeList(label) {
             button = elements.snapshotItem(0);
             break;
           }
+          console.log('xpath used');
         } else {
           // Use regular CSS selector
           button = document.querySelector(selector);
+          console.log('css used')
           if (button) break;
         }
       }
@@ -159,12 +161,8 @@ function waitFor(checkFn, timeout = 10000, interval = 100) {
   });
 }
 
-window.addEventListener("load", async () => {
-  const pathParts = window.location.pathname.split("/").filter(Boolean);
-  if (pathParts.length !== 1) return; // only run on profile pages
-
-  console.log("IG Extension: scraping followers and following...");
-  
+// Function to start the scraping process
+async function startScraping() {
   try {
     // Clear previous data
     localStorage.removeItem("ig_followers");
@@ -194,4 +192,12 @@ window.addEventListener("load", async () => {
     console.error("Error during scraping:", error);
     localStorage.setItem("ig_scraping_status", `Error: ${error.message}`);
   }
+}
+
+// Listen for messages from the popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "startScraping") {
+    startScraping();
+  }
+  return true;
 });
